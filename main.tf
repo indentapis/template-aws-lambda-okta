@@ -29,5 +29,18 @@ module "idt-okta-webhook" {
     OKTA_CLIENT_ID    = var.okta_client_id
     OKTA_PRIVATE_KEY  = var.okta_private_key
   }
+  
+  /**  
+  indent_webhook_secret = "idt-okta-SECRET_NAME"
+
+  secrets_backend = "aws-secrets-manager"
+  secrets_prefix  = "idt-okta-"
+
+  env = {
+    OKTA_DOMAIN           = "idt-okta-SECRET_NAME"
+    OKTA_TOKEN            = "idt-okta-SECRET_NAME"
+    OKTA_SLACK_APP_ID     = "idt-okta-SECRET_NAME"
+  }
+  **/
 }
 
