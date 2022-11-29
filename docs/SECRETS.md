@@ -15,19 +15,19 @@ resource "aws_secretsmanager_secret" "integration-okta-secret" {
 }
 
 resource "aws_secretsmanager_secret_version" "secret" {
-  secret_id = aws_secretsmanager_secret.integration-okta-secret.id
+  secret_id     = aws_secretsmanager_secret.integration-okta-secret.id
   secret_string = <<EOF
    {
     "INDENT_WEBHOOK_SECRET": "xyz987",
-    "OKTA_DOMAIN": "my-okta-domain.okta.com",
-    "OKTA_TOKEN": "00abc123",
+    "OKTA_DOMAIN":           "my-okta-domain.okta.com",
+    "OKTA_TOKEN":            "00abc123",
    }
 EOF
 }
 
 module "idt-okta-webhook" {
-  source                = "git::https://github.com/indentapis/integrations//terraform/modules/indent_runtime_aws_lambda"
-  name                  = "idt-okta-webhook"
+  source = "git::https://github.com/indentapis/integrations//terraform/modules/indent_runtime_aws_lambda"
+  name   = "idt-okta-webhook"
   
   // see template-aws-lambda-okta/main.tf for the latest artifact values
   artifact = {
@@ -37,12 +37,12 @@ module "idt-okta-webhook" {
   }
   
   indent_webhook_secret = aws_secretsmanager_secret.integration-okta-secret.name
-  secrets_backend = "aws-secrets-manager"
+  secrets_backend       = "aws-secrets-manager"
   
   // secrets_prefix  = "idt-okta-"
   env = {
-    OKTA_DOMAIN           = aws_secretsmanager_secret.integration-okta-secret.name
-    OKTA_TOKEN            = aws_secretsmanager_secret.integration-okta-secret.name
+    OKTA_DOMAIN = aws_secretsmanager_secret.integration-okta-secret.name
+    OKTA_TOKEN  = aws_secretsmanager_secret.integration-okta-secret.name
 
     // OKTA_SLACK_APP_ID = aws_secretsmanager_secret.integration-okta-secret.name - set if Slack is installed and managed with Okta
     // OKTA_CLIENT_ID    = aws_secretsmanager_secret.integration-okta-secret.name - for app-based authentication
