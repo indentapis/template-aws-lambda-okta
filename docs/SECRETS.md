@@ -9,7 +9,7 @@ An AWS Secret is a key-value store, so you can store multiple secret values
 in the one Secret. A simple setup might store all of the secrets in one, and
 could look like the following:
 
-```
+```HCL
 resource "aws_secretsmanager_secret" "integration-okta-secret" {
    name = "idt-okta-secret"
 }
