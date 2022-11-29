@@ -26,7 +26,15 @@ EOF
 }
 
 module "idt-okta-webhook" {
-  // source, name, artifacts: same as in main.tf
+  source                = "git::https://github.com/indentapis/integrations//terraform/modules/indent_runtime_aws_lambda"
+  name                  = "idt-okta-webhook"
+  
+  // see template-aws-lambda-okta/main.tf for the latest artifact values
+  artifact = {
+    bucket       = ""
+    function_key = ""
+    deps_key     = ""
+  }
   
   indent_webhook_secret = aws_secretsmanager_secret.integration-okta-secret.name
   secrets_backend = "aws-secrets-manager"
