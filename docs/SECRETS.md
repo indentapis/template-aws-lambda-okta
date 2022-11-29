@@ -27,21 +27,18 @@ EOF
 
 module "idt-okta-webhook" {
   // source, name, artifacts: same as in main.tf
-
-  env = {
-    OKTA_DOMAIN       = var.okta_domain
-    OKTA_TOKEN        = var.okta_token
-    OKTA_SLACK_APP_ID = var.okta_slack_app_id
-    OKTA_CLIENT_ID    = var.okta_client_id
-    OKTA_PRIVATE_KEY  = var.okta_private_key
-  }
   
-  indent_webhook_secret = "idt-okta-secret"
+  indent_webhook_secret = aws_secretsmanager_secret.integration-okta-secret.name
   secrets_backend = "aws-secrets-manager"
-  secrets_prefix  = "idt-okta-"
+  
+  // secrets_prefix  = "idt-okta-"
   env = {
-    OKTA_DOMAIN           = "idt-okta-secret"
-    OKTA_TOKEN            = "idt-okta-secret"
+    OKTA_DOMAIN           = aws_secretsmanager_secret.integration-okta-secret.name
+    OKTA_TOKEN            = aws_secretsmanager_secret.integration-okta-secret.name
+
+    // OKTA_SLACK_APP_ID = aws_secretsmanager_secret.integration-okta-secret.name - set if Slack is installed and managed with Okta
+    // OKTA_CLIENT_ID    = aws_secretsmanager_secret.integration-okta-secret.name - for app-based authentication
+    // OKTA_PRIVATE_KEY  = aws_secretsmanager_secret.integration-okta-secret.name - for app-based authentication
   }
 }
 ```
