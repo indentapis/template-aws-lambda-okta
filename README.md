@@ -41,7 +41,7 @@ Before you deploy these webhooks for the first time, [create an S3 bucket](https
 
 <details><summary><strong>3. Connecting to Okta</strong></summary>
 
-- [Go to Okta > Security > API > Tokens](https://help.okta.com/en-us/Content/Topics/Security/API.htm#create-okta-api-token) and create a new API Token, then give the token a descriptive name like `Indent Auto Approvals`
+- [Go to Okta > Security > API > Tokens](https://help.okta.com/en-us/Content/Topics/Security/API.htm#create-okta-api-token) and create a new API Token, then give the token a descriptive name like `indent-integration-okta`
 - Add this as `OKTA_TOKEN` as a GitHub Secret
 - Copy your Okta Domain URL and add this as `OKTA_DOMAIN` as a GitHub Secret
 
